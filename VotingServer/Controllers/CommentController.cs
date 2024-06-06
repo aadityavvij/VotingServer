@@ -36,7 +36,9 @@ namespace VotingServer.Controllers
 			{
 				return NotFound();
 			}
-            return Ok(await _context.Votes.Where(e => e.ProjectId == id).ToListAsync());
+			var comments = await _context.Comments.Where(e => e.ProjectId == id).ToListAsync();
+
+			return Ok(comments);
 		}
 
 		// PUT: api/Comment/5

@@ -25,20 +25,15 @@ namespace VotingServer.Controllers
 			_context = context;
 			_userManager = userManager;
 		}
-		[Authorize]
-		[HttpGet]
-		public async Task<IActionResult> GetUserAdditional()
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetUserAdditional(string id)
 		{
-			var user = await _userManager.GetUserAsync(User);
+			var user = await _userManager.FindByIdAsync(id);
 			if (user == null)
 			{
 				return NotFound();
 			}
-			UserAdditional u = new UserAdditional();
-			u.Id = user.Id;
-			u.UserName = user.UserName;
-			u.Email = user.Email;
-			return Ok(u);
+			return Ok(new {  user.UserName });
 		}
 	}
 }

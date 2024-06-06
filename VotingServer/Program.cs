@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
 using VoterServer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +41,10 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+	options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 builder.Services.AddControllers();
 
