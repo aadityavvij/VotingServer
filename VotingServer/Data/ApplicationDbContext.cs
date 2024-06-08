@@ -23,6 +23,60 @@ namespace VoterServer.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
+			// AspNetUserTokens
+			modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+			{
+				entity.Property(e => e.UserId).HasMaxLength(127);
+				entity.Property(e => e.LoginProvider).HasMaxLength(128);
+				entity.Property(e => e.Name).HasMaxLength(128);
+			});
+
+			// AspNetUserLogins
+			modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+			{
+				entity.Property(e => e.UserId).HasMaxLength(127);
+				entity.Property(e => e.LoginProvider).HasMaxLength(128);
+				entity.Property(e => e.ProviderKey).HasMaxLength(128);
+			});
+
+			// AspNetUsers
+			modelBuilder.Entity<IdentityUser>(entity =>
+			{
+				entity.Property(e => e.Id).HasMaxLength(127);
+				entity.Property(e => e.Email).HasMaxLength(127);
+				entity.Property(e => e.NormalizedEmail).HasMaxLength(127);
+				entity.Property(e => e.NormalizedUserName).HasMaxLength(127);
+				entity.Property(e => e.LockoutEnd).HasColumnType("datetime");
+			});
+
+			// AspNetRoles
+			modelBuilder.Entity<IdentityRole>(entity =>
+			{
+				entity.Property(e => e.Id).HasMaxLength(127);
+				entity.Property(e => e.Name).HasMaxLength(128);
+				entity.Property(e => e.NormalizedName).HasMaxLength(127);
+			});
+
+			// AspNetRoleClaims
+			modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
+			{
+				entity.Property(e => e.RoleId).HasMaxLength(127);
+			});
+
+			// AspNetUserClaims
+			modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
+			{
+				entity.Property(e => e.UserId).HasMaxLength(127);
+			});
+
+			// AspNetUserRoles
+			modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+			{
+				entity.Property(e => e.UserId).HasMaxLength(127);
+				entity.Property(e => e.RoleId).HasMaxLength(127);
+			});
+
+			// Projects
 			modelBuilder.Entity<Project>(entity =>
 			{
 				entity.HasKey(e => e.Id);
@@ -31,9 +85,10 @@ namespace VoterServer.Data
 					  .WithMany()
 					  .HasForeignKey(e => e.CreatedById);
 
-				entity.Property(e => e.CreatedAt);
+				entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 			});
 
+			// Votes
 			modelBuilder.Entity<Vote>(entity =>
 			{
 				entity.HasKey(e => e.Id);
@@ -46,9 +101,10 @@ namespace VoterServer.Data
 					  .WithMany(p => p.VotesNavigation)
 					  .HasForeignKey(e => e.ProjectId);
 
-				entity.Property(e => e.CreatedAt);
+				entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 			});
 
+			// Comments
 			modelBuilder.Entity<Comment>(entity =>
 			{
 				entity.HasKey(e => e.Id);
@@ -61,7 +117,7 @@ namespace VoterServer.Data
 					  .WithMany(p => p.Comments)
 					  .HasForeignKey(e => e.ProjectId);
 
-				entity.Property(e => e.CreatedAt);
+				entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 			});
 		}
 	}
