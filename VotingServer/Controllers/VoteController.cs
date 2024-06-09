@@ -83,24 +83,5 @@ namespace VotingServer.Controllers
             await _context.SaveChangesAsync();
             return Created();
         }
-
-		// PUT: api/Vote/5
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		// {id} is project id
-		/*
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVote(int id, Vote vote)
-        {
-        }
-        */
-
-		// DELETE: api/Vote/5
-		// {id} is ProjectId
-		/*
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVote(int id)
-        {
-        }
-        */
 	}
 }
