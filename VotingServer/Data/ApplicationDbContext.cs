@@ -22,7 +22,7 @@ namespace VoterServer.Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-
+			/*
 			// AspNetUserTokens
 			modelBuilder.Entity<IdentityUserToken<string>>(entity =>
 			{
@@ -75,6 +75,7 @@ namespace VoterServer.Data
 				entity.Property(e => e.UserId).HasMaxLength(127);
 				entity.Property(e => e.RoleId).HasMaxLength(127);
 			});
+			*/
 
 			// Projects
 			modelBuilder.Entity<Project>(entity =>
@@ -85,7 +86,8 @@ namespace VoterServer.Data
 					  .WithMany()
 					  .HasForeignKey(e => e.CreatedById);
 
-				entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+				entity.Property(e => e.CreatedAt)
+					.HasColumnType("datetime");
 			});
 
 			// Votes
@@ -101,7 +103,8 @@ namespace VoterServer.Data
 					  .WithMany(p => p.VotesNavigation)
 					  .HasForeignKey(e => e.ProjectId);
 
-				entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+				entity.Property(e => e.CreatedAt)
+					.HasColumnType("datetime");
 			});
 
 			// Comments
@@ -117,7 +120,8 @@ namespace VoterServer.Data
 					  .WithMany(p => p.Comments)
 					  .HasForeignKey(e => e.ProjectId);
 
-				entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+				entity.Property(e => e.CreatedAt)
+					.HasColumnType("datetime");
 			});
 		}
 	}
